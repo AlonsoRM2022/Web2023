@@ -1,4 +1,5 @@
-﻿using FrontEnd.Helpers;
+﻿using FrontEnd.Helpers.Implementations;
+using FrontEnd.Helpers.Interfaces;
 using FrontEnd.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -7,10 +8,18 @@ namespace FrontEnd.Controllers
 {
     public class ShipperController : Controller
     {
+
+        IShipperHelper shipperHelper;
+
+        public ShipperController(IShipperHelper _shipperHelper)
+        {
+            shipperHelper = _shipperHelper;
+        }
+
         // GET: ShipperController
         public ActionResult Index()
         {
-            ShipperHelper shipperHelper = new ShipperHelper();
+            //ShipperHelper shipperHelper = new ShipperHelper();
             List<ShipperViewModel> shippers = shipperHelper.GetAll();
             return View(shippers);
         }
@@ -18,7 +27,8 @@ namespace FrontEnd.Controllers
         // GET: ShipperController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            ShipperViewModel shipper = shipperHelper.GetById(id);
+            return View(shipper);
         }
 
         // GET: ShipperController/Create
@@ -30,10 +40,11 @@ namespace FrontEnd.Controllers
         // POST: ShipperController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ShipperViewModel shipper)
         {
             try
             {
+                shipperHelper.AddShipper(shipper);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -45,16 +56,18 @@ namespace FrontEnd.Controllers
         // GET: ShipperController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            ShipperViewModel shipper = shipperHelper.GetById(id);
+            return View(shipper);
         }
 
         // POST: ShipperController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(ShipperViewModel shipper)
         {
             try
             {
+                ShipperViewModel shipperViewModel = shipperHelper.EditShipper(shipper);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -66,16 +79,18 @@ namespace FrontEnd.Controllers
         // GET: ShipperController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            ShipperViewModel shipper = shipperHelper.GetById(id);
+            return View(shipper);
         }
 
         // POST: ShipperController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(ShipperViewModel shipper)
         {
             try
             {
+                shipperHelper.DeleteShipper(shipper.ShipperId);
                 return RedirectToAction(nameof(Index));
             }
             catch
