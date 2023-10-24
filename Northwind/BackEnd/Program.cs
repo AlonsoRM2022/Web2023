@@ -18,6 +18,12 @@ builder.Services.AddDbContext<NorthWindContext>();
 builder.Services.AddScoped<IShipperDAL, ShipperDALImpl>();
 builder.Services.AddScoped<IUnidadDeTrabajo, UnidadDeTrabajo>();
 builder.Services.AddScoped<IShipperService, ShipperService>();
+builder.Services.AddScoped<ICustomerDAL, CustomerDALImpl>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IEmployeeDAL, EmployeeDALImpl>();
+builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IOrderDAL, OrderDALImpl>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 var app = builder.Build();

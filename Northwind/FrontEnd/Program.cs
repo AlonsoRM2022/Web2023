@@ -10,6 +10,9 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IShipperHelper, ShipperHelper>();
+builder.Services.AddScoped<ICustomerHelper, CustomerHelper>();
+builder.Services.AddScoped<IEmployeeHelper, EmployeeHelper>();
+builder.Services.AddScoped<IOrderHelper, OrderHelper>();
 
 
 

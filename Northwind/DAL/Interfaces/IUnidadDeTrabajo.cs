@@ -10,6 +10,9 @@ namespace DAL.Interfaces
     {
 
         IShipperDAL _shipperDAL { get; }
+        ICustomerDAL _customerDAL { get; }
+        IEmployeeDAL _employeeDAL { get; }
+        IOrderDAL _orderDAL { get; }
         bool Complete();
     }
 }
